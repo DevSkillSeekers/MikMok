@@ -1,5 +1,6 @@
 package com.example.android.mikmok
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import okhttp3.*
@@ -25,5 +26,16 @@ class MainActivity : AppCompatActivity() {
 //                }
             }
         })
+    }
+
+
+
+    private fun shareURL(url:String){
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, url)
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(sendIntent, null))
     }
 }
