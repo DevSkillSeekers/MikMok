@@ -14,10 +14,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-
-
-
-
     private fun requestUsingOkHttp(){
         val request = Request.Builder().url("https://raw.githubusercontent.com/android/tv-samples/main/ClassicsKotlin/app/src/main/assets/media-feed.json").build()
         client.newCall(request).enqueue(object: Callback {
