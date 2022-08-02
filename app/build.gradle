@@ -29,6 +29,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -46,4 +49,9 @@ dependencies {
 
     // gson for Kotlin to parse JSON responses from the server
     implementation 'com.google.code.gson:gson:2.9.0'
+
+    //exoplayer dependencies
+    implementation "androidx.media3:media3-exoplayer:1.0.0-alpha03"
+    implementation "androidx.media3:media3-ui:1.0.0-alpha03"
+    implementation "androidx.media3:media3-exoplayer-dash:1.0.0-alpha03"
 }
