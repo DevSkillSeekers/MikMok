@@ -20,7 +20,6 @@ class FeedAdapter(private var itemse:List<Item>) : RecyclerView.Adapter<FeedAdap
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentItem =itemse[position]
-
         }
 
     override fun getItemCount()= itemse.size
