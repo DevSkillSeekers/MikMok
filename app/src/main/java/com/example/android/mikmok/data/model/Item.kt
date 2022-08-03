@@ -1,4 +1,4 @@
-package com.example.android.mikmok.data
+package com.example.android.mikmok.data.model
 
 data class Item(
     val art: String,
