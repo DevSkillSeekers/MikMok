@@ -1,4 +1,4 @@
-package com.example.android.mikmok.data
+package com.example.android.mikmok.data.model
 
 data class Feed(
     val description: String,
