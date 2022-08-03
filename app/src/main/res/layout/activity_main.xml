@@ -7,14 +7,6 @@
     android:background="@color/background"
     tools:context=".ui.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:liftOnScroll="true" />
-
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
@@ -24,22 +16,13 @@
         app:title="@string/watch_text"
         app:titleTextColor="@color/white" />
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintTop_toTopOf="@id/tool_bar"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/item_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/card_item" />
-
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+        tools:listitem="@layout/card_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

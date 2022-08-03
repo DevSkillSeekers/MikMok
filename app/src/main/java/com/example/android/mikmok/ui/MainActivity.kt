@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.mikmok.data.model.Item
 import com.example.android.mikmok.data.model.MikMokResponse
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity(), FeedAdapter.OnClickListener {
         getFeed()
 
         val layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         feedAdapter = FeedAdapter(this, feedList)
         viewBinding.itemRecyclerView.layoutManager = layoutManager
         viewBinding.itemRecyclerView.adapter = feedAdapter
@@ -49,8 +48,6 @@ class MainActivity : AppCompatActivity(), FeedAdapter.OnClickListener {
             override fun onResponse(call: Call, response: Response) {
                 response.body?.string().let { jsonString ->
                     val result = Gson().fromJson(jsonString, MikMokResponse::class.java)
-                    Log.i(Constants.TAG, "data=>: $result")
-
                     runOnUiThread{
                         feedAdapter.setData(result.feed.first().items as ArrayList<Item>)
                     }
