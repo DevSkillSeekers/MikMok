@@ -12,6 +12,7 @@ class DataManager {
     fun saveMikMokData(data: MikMokResponse) {
         _dataList = data
         Log.i(TAG, "data saved: $_dataList")
+
     }
 
     companion object {
