@@ -9,8 +9,6 @@ import com.example.android.mikmok.data.model.Item
 import com.example.android.mikmok.databinding.CardItemBinding
 import com.example.android.mikmok.utils.Constants
 import com.example.android.mikmok.utils.ExoPlay
-import java.lang.System.load
-import java.util.ServiceLoader.load
 
 class FeedAdapter(
     private var listener: OnClickListener,
@@ -26,6 +24,7 @@ class FeedAdapter(
         return FeedViewHolder(CardItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
+
     fun setData(newItems: ArrayList<Item>) {
         val diffResult = DiffUtil.calculateDiff(ItemDiffUtil(items, newItems))
         items.clear()
@@ -34,9 +33,10 @@ class FeedAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
+
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentItem = items[position]
-        holder.itemView.tag = Constants.TAG
+        holder.itemView.tag = position
 
         holder.binding.apply {
             titleText.text = currentItem.title
@@ -47,9 +47,7 @@ class FeedAdapter(
                 .into(imageView)
 
             val exoPlay = ExoPlay(holder.itemView.context)
-
             exoPlay.setURL(currentItem.url)
-
             videoView.player = exoPlay.player
 
             shareText.setOnClickListener {
@@ -57,6 +55,7 @@ class FeedAdapter(
             }
         }
     }
+
 
     override fun getItemCount() = items.size
 
