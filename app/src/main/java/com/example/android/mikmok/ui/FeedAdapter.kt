@@ -22,10 +22,7 @@ class FeedAdapter(
         fun onClick(item: Item)
     }
 
-    private lateinit var exoPlay: ExoPlay
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
-        exoPlay = ExoPlay(parent.context)
         return FeedViewHolder(CardItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
@@ -39,9 +36,8 @@ class FeedAdapter(
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentItem = items[position]
-        holder.itemView.setOnClickListener {
-            listener.onClick(currentItem)
-        }
+        holder.itemView.tag = Constants.TAG
+
         holder.binding.apply {
             titleText.text = currentItem.title
             descriptionText.text = currentItem.description
@@ -50,18 +46,19 @@ class FeedAdapter(
                 .load(currentItem.art)
                 .into(imageView)
 
+            val exoPlay = ExoPlay(holder.itemView.context)
+
             exoPlay.setURL(currentItem.url)
-            videoView.tag = Constants.TAG
+
             videoView.player = exoPlay.player
+
+            shareText.setOnClickListener {
+                listener.onClick(currentItem)
+            }
         }
     }
 
-
     override fun getItemCount() = items.size
-
-    class FeedViewHolder(val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    }
 
     class ItemDiffUtil(
         private val oldListItem: List<Item>,
@@ -81,4 +78,9 @@ class FeedAdapter(
 
     }
 
+    class FeedViewHolder(val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    }
 }
+
+

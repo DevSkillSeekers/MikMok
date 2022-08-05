@@ -11,7 +11,7 @@ import androidx.media3.exoplayer.ExoPlayer
 class ExoPlay(context: Context) {
 
     var player: ExoPlayer? = null
-    private var playWhenReady = false//true
+    private var playWhenReady = false
     private var currentItem = 0
     private var playbackPosition = 0L
 

@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.widget.NestedScrollView
 import androidx.media3.ui.PlayerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.mikmok.R
 import com.example.android.mikmok.data.model.Item
 import com.example.android.mikmok.data.model.MikMokResponse
 import com.example.android.mikmok.data.request.ApiClient
@@ -32,25 +34,32 @@ class MainActivity : AppCompatActivity(), FeedAdapter.OnClickListener {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(viewBinding.root)
 
         getFeed()
 
-        val layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         feedAdapter = FeedAdapter(this, feedList)
-        viewBinding.itemRecyclerView.layoutManager = layoutManager
         viewBinding.itemRecyclerView.adapter = feedAdapter
-        var view: PlayerView? = null
+        viewBinding.itemRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+        var oldVideoPlayer: PlayerView? = null
+        var videoPlayer: PlayerView? = null
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             viewBinding.itemRecyclerView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-                if(view?.player?.isPlaying == true){
-                    view?.player?.pause()
+
+                if (videoPlayer != null) {
+                    oldVideoPlayer = videoPlayer
+                    oldVideoPlayer?.player?.pause()
                 }
-                view = viewBinding.itemRecyclerView.findViewWithTag(TAG)
-                view?.player?.play()
+                val newView = viewBinding.itemRecyclerView.findViewWithTag(Constants.TAG) as View
+                videoPlayer = newView.rootView.findViewById(R.id.video_view) as PlayerView
+                videoPlayer?.player?.play()
+
             }
         }
     }

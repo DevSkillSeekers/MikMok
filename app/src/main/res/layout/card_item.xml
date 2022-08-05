@@ -4,110 +4,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:background="@color/background_card">
+    android:paddingBottom="8dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/image_card"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="@dimen/margin_large"
-        android:layout_marginTop="@dimen/margin_large"
-        app:cardCornerRadius="@dimen/radius_size_24dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_card"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/image_view"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image_card"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_large"
+            app:cardCornerRadius="@dimen/radius_size_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_large"
+            android:text="@string/title_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium_14sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@+id/image_card"
+            app:layout_constraintBottom_toBottomOf="@+id/image_card"
+            app:layout_constraintStart_toEndOf="@+id/image_card" />
+
+        <TextView
+            android:id="@+id/description_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_launcher_background" />
-    </androidx.cardview.widget.CardView>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:ellipsize="end"
+            android:lines="2"
+            android:text="@string/description_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium_14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@+id/image_card"
+            app:layout_constraintTop_toBottomOf="@+id/image_card" />
 
-    <TextView
-        android:id="@+id/title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_large"
-        android:text="@string/title_text"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_medium_14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/image_card"
-        app:layout_constraintStart_toEndOf="@+id/image_card" />
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_large"
+            app:layout_constraintBottom_toTopOf="@id/view"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_text"
+            app:resize_mode="fill"
+            tools:layout_editor_absoluteX="0dp" />
 
-    <TextView
-        android:id="@+id/description_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/margin_large"
-        android:ellipsize="end"
-        android:lines="2"
-        android:text="@string/description_text"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_medium_14sp"
-        android:textStyle="normal"
-        app:layout_constraintStart_toStartOf="@+id/image_card"
-        app:layout_constraintTop_toBottomOf="@+id/image_card" />
+        <ImageButton
+            android:id="@+id/icon_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_play"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/video_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/video_view"
+            app:layout_constraintTop_toTopOf="@+id/video_view" />
 
-    <androidx.media3.ui.PlayerView
-        android:id="@+id/video_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="2:1"
-        app:resize_mode="fill"
-        android:layout_marginTop="@dimen/margin_large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/view"
-        app:layout_constraintTop_toBottomOf="@+id/description_text"
-        tools:layout_editor_absoluteX="0dp" />
+        <TextView
+            android:id="@+id/share_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:text="@string/share_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_large_16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintStart_toStartOf="@+id/view" />
 
-    <ImageButton
-        android:id="@+id/icon_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_play"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/video_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/video_view"
-        app:layout_constraintTop_toTopOf="@+id/video_view" />
+        <ImageView
+            android:id="@+id/icon_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_small_8dp"
+            android:src="@drawable/ic_share"
+            app:layout_constraintBottom_toBottomOf="@+id/share_text"
+            app:layout_constraintEnd_toStartOf="@+id/share_text" />
 
-    <TextView
-        android:id="@+id/share_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:layout_marginBottom="@dimen/margin_large"
-        android:text="@string/share_text"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_large_16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintStart_toStartOf="@+id/view" />
-
-    <ImageView
-        android:id="@+id/icon_share"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_small_8dp"
-        android:src="@drawable/ic_share"
-        app:layout_constraintBottom_toBottomOf="@+id/share_text"
-        app:layout_constraintEnd_toStartOf="@+id/share_text" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="385dp"
-        android:layout_height="2dp"
-        android:layout_marginBottom="@dimen/margin_large"
-        android:background="@color/gray_light"
-        app:layout_constraintBottom_toTopOf="@+id/share_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        <View
+            android:id="@+id/view"
+            android:layout_width="385dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="@color/gray_light"
+            app:layout_constraintBottom_toTopOf="@+id/share_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
