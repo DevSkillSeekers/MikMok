@@ -1,15 +1,21 @@
 package com.example.android.mikmok.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
+import androidx.media3.ui.PlayerView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.android.mikmok.data.model.Item
 import com.example.android.mikmok.data.model.MikMokResponse
 import com.example.android.mikmok.data.request.ApiClient
 import com.example.android.mikmok.databinding.ActivityMainBinding
 import com.example.android.mikmok.utils.Constants
+import com.example.android.mikmok.utils.Constants.TAG
 import com.google.gson.Gson
 import okhttp3.Call
 import okhttp3.Callback
@@ -37,6 +43,16 @@ class MainActivity : AppCompatActivity(), FeedAdapter.OnClickListener {
         feedAdapter = FeedAdapter(this, feedList)
         viewBinding.itemRecyclerView.layoutManager = layoutManager
         viewBinding.itemRecyclerView.adapter = feedAdapter
+        var view: PlayerView? = null
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            viewBinding.itemRecyclerView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if(view?.player?.isPlaying == true){
+                    view?.player?.pause()
+                }
+                view = viewBinding.itemRecyclerView.findViewWithTag(TAG)
+                view?.player?.play()
+            }
+        }
     }
 
     private fun getFeed() {
@@ -48,15 +64,13 @@ class MainActivity : AppCompatActivity(), FeedAdapter.OnClickListener {
             override fun onResponse(call: Call, response: Response) {
                 response.body?.string().let { jsonString ->
                     val result = Gson().fromJson(jsonString, MikMokResponse::class.java)
-                    runOnUiThread{
+                    runOnUiThread {
                         feedAdapter.setData(result.feed.first().items as ArrayList<Item>)
                     }
                 }
             }
         })
     }
-
-
 
     override fun onClick(item: Item) {
         shareURL(item.url)

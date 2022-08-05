@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="460dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
     android:background="@color/background_card">
 
@@ -53,11 +53,16 @@
         app:layout_constraintStart_toStartOf="@+id/image_card"
         app:layout_constraintTop_toBottomOf="@+id/image_card" />
 
-    <VideoView
+    <androidx.media3.ui.PlayerView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
-        android:layout_height="235dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="2:1"
+        app:resize_mode="fill"
         android:layout_marginTop="@dimen/margin_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/view"
         app:layout_constraintTop_toBottomOf="@+id/description_text"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -66,6 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_play"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/video_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/video_view"

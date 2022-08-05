@@ -4,12 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.android.mikmok.data.model.Item
 import com.example.android.mikmok.databinding.CardItemBinding
+import com.example.android.mikmok.utils.Constants
+import com.example.android.mikmok.utils.ExoPlay
+import java.lang.System.load
+import java.util.ServiceLoader.load
 
 class FeedAdapter(
     private var listener: OnClickListener,
-    private var items: ArrayList<Item>
+    private var items: ArrayList<Item>,
 ) :
     RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
 
@@ -17,7 +22,10 @@ class FeedAdapter(
         fun onClick(item: Item)
     }
 
+    private lateinit var exoPlay: ExoPlay
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
+        exoPlay = ExoPlay(parent.context)
         return FeedViewHolder(CardItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
@@ -37,13 +45,22 @@ class FeedAdapter(
         holder.binding.apply {
             titleText.text = currentItem.title
             descriptionText.text = currentItem.description
+            Glide
+                .with(holder.itemView.context)
+                .load(currentItem.art)
+                .into(imageView)
 
+            exoPlay.setURL(currentItem.url)
+            videoView.tag = Constants.TAG
+            videoView.player = exoPlay.player
         }
     }
+
 
     override fun getItemCount() = items.size
 
     class FeedViewHolder(val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
     }
 
     class ItemDiffUtil(
@@ -63,4 +80,5 @@ class FeedAdapter(
         }
 
     }
+
 }
