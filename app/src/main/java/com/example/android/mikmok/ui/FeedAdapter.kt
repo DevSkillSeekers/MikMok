@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.android.mikmok.data.model.Item
 import com.example.android.mikmok.databinding.CardItemBinding
+import com.example.android.mikmok.utils.ExoPlay
 
 class FeedAdapter(
     private var listener: OnClickListener,
-    private var items: ArrayList<Item>
+    private var items: ArrayList<Item>,
 ) :
     RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
 
@@ -21,6 +23,7 @@ class FeedAdapter(
         return FeedViewHolder(CardItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
+
     fun setData(newItems: ArrayList<Item>) {
         val diffResult = DiffUtil.calculateDiff(ItemDiffUtil(items, newItems))
         items.clear()
@@ -29,22 +32,31 @@ class FeedAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
+
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
         val currentItem = items[position]
-        holder.itemView.setOnClickListener {
-            listener.onClick(currentItem)
-        }
+        holder.itemView.tag = position
+
         holder.binding.apply {
             titleText.text = currentItem.title
             descriptionText.text = currentItem.description
+            Glide
+                .with(holder.itemView.context)
+                .load(currentItem.art)
+                .into(imageView)
 
+            val exoPlay = ExoPlay(holder.itemView.context)
+            exoPlay.setURL(currentItem.url)
+            videoView.player = exoPlay.player
+
+            shareText.setOnClickListener {
+                listener.onClick(currentItem)
+            }
         }
     }
 
-    override fun getItemCount() = items.size
 
-    class FeedViewHolder(val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    }
+    override fun getItemCount() = items.size
 
     class ItemDiffUtil(
         private val oldListItem: List<Item>,
@@ -63,4 +75,10 @@ class FeedAdapter(
         }
 
     }
+
+    class FeedViewHolder(val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+    }
 }
+
+
