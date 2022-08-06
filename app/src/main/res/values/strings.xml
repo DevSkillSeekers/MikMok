@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MikMok</string>
+    <string name="share_text">Share</string>
+    <string name="watch_text">Watch</string>
+    <string name="title_text">The Wonderful Wizard</string>
+    <string name="description_text">Hi how are you I hope you are good, thaa fje hf fi jfthis test this test.......</string>
 </resources>

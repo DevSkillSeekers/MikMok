@@ -4,6 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MikMok/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Win7/AndroidStudioProjects/MikMok/app/src/main/res/drawable/ic_play.xml" value="0.1625" />
+        <entry key="..\:/Users/Win7/AndroidStudioProjects/MikMok/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Win7/AndroidStudioProjects/MikMok/app/src/main/res/layout/card_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/card_item.xml" value="0.2994837443033854" />
       </map>
     </option>
   </component>
@@ -12,5 +17,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>
