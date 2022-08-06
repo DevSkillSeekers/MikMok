@@ -12,8 +12,7 @@ import com.example.android.mikmok.utils.ExoPlay
 class FeedAdapter(
     private var listener: OnClickListener,
     private var items: ArrayList<Item>,
-) :
-    RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
+) : RecyclerView.Adapter<FeedAdapter.FeedViewHolder>() {
 
     interface OnClickListener {
         fun onClick(item: Item)
@@ -22,7 +21,6 @@ class FeedAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         return FeedViewHolder(CardItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
-
 
     fun setData(newItems: ArrayList<Item>) {
         val diffResult = DiffUtil.calculateDiff(ItemDiffUtil(items, newItems))
@@ -44,10 +42,6 @@ class FeedAdapter(
                 .with(holder.itemView.context)
                 .load(currentItem.art)
                 .into(imageView)
-
-            val exoPlay = ExoPlay(holder.itemView.context)
-            exoPlay.setURL(currentItem.url)
-            videoView.player = exoPlay.player
 
             shareText.setOnClickListener {
                 listener.onClick(currentItem)
@@ -76,9 +70,7 @@ class FeedAdapter(
 
     }
 
-    class FeedViewHolder(val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    }
+    class FeedViewHolder(val binding: CardItemBinding) : RecyclerView.ViewHolder(binding.root) {}
 }
 
 

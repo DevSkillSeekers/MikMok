@@ -8,19 +8,16 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.util.Util
 import androidx.media3.exoplayer.ExoPlayer
 
-class ExoPlay(context: Context) {
+class ExoPlay{
 
     var player: ExoPlayer? = null
-    private var playWhenReady = false
+    private var playWhenReady = true
     private var currentItem = 0
     private var playbackPosition = 0L
 
-    init {
+    fun setURL(url: String, context: Context) {
         player = ExoPlayer.Builder(context)
             .build()
-    }
-
-    fun setURL(url: String) {
         player.also { exoPlayer ->
             val mediaItem =
                 MediaItem.fromUri(url)
