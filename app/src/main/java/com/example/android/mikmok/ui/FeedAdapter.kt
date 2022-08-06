@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android.mikmok.data.model.Item
 import com.example.android.mikmok.databinding.CardItemBinding
-import com.example.android.mikmok.utils.Constants
 import com.example.android.mikmok.utils.ExoPlay
 
 class FeedAdapter(

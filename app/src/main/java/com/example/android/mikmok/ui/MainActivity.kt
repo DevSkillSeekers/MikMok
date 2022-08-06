@@ -1,5 +1,6 @@
 package com.example.android.mikmok.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity(), FeedAdapter.OnClickListener {
     private val viewBinding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    private val exoPlay by lazy { ExoPlay(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +42,8 @@ class MainActivity : AppCompatActivity(), FeedAdapter.OnClickListener {
         feedAdapter = FeedAdapter(this, feedList)
         viewBinding.itemRecyclerView.adapter = feedAdapter
 
-        var videoPlayer: PlayerView? = null
         var position = 0
-        var lastPosition = 0
+        var currentView: PlayerView? = null
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             viewBinding.itemRecyclerView.addOnScrollListener(object :
@@ -55,22 +54,15 @@ class MainActivity : AppCompatActivity(), FeedAdapter.OnClickListener {
                         val current =
                             (viewBinding.itemRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
                         if (current > -1 && current != position) {
-                            lastPosition = position
                             position = current
                         }
 
-                        viewBinding.itemRecyclerView.findViewHolderForAdapterPosition(lastPosition)
-                            .apply {
-                                if (this != null)
-                                    (this as FeedAdapter.FeedViewHolder)?.binding?.videoView?.player?.pause()
-
-                            }
-
-                        viewBinding.itemRecyclerView.findViewHolderForAdapterPosition(position)
-                            .apply {
-                                if (this != null)
-                                (this as FeedAdapter.FeedViewHolder)?.binding?.videoView?.player?.play()
-                            }
+                        if (currentView != null) {
+                            currentView?.player?.pause()
+                        }
+                        val rootView: View? = viewBinding.itemRecyclerView.findViewWithTag(position)
+                        currentView = rootView?.findViewById(R.id.video_view)
+                        currentView?.player?.play()
 
                         Log.d("POSITION", position.toString())
                     }
